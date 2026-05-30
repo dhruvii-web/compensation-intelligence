@@ -51,6 +51,15 @@ export default function Navbar() {
             Leaderboard
           </Link>
 
+          {isSignedIn && (
+            <Link
+              href="/profile"
+              className="hover:text-black transition"
+            >
+              Profile
+            </Link>
+          )}
+
           {!isSignedIn ? (
             <SignInButton mode="modal">
               <button className="hover:text-black transition font-medium">
@@ -65,23 +74,7 @@ export default function Navbar() {
                     "w-10 h-10",
                 },
               }}
-            >
-              <UserButton.MenuItems>
-                <UserButton.Link
-                  label="Profile"
-                  href="/profile"
-                  labelIcon={
-                    <span>
-                      👤
-                    </span>
-                  }
-                />
-
-                <UserButton.Action
-                  label="Sign Out"
-                />
-              </UserButton.MenuItems>
-            </UserButton>
+            />
           )}
         </div>
       </div>
