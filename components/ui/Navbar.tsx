@@ -18,8 +18,7 @@ export default function Navbar() {
           href="/"
           className="font-bold text-2xl tracking-tight text-slate-900"
         >
-          Compensation
-          Intelligence
+          Compensation Intelligence
         </Link>
 
         <div className="flex items-center gap-8 text-sm font-medium text-slate-600">
