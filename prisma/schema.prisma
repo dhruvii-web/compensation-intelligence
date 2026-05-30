@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                String   @id
+  name              String?
+  email             String?  @unique
+  image             String?
+  createdAt         DateTime @default(now())
+
+  compensations     Compensation[]
+  savedComparisons  SavedComparison[]
+}
+
+model Company {
+  id               String   @id @default(cuid())
+  name             String   @unique
+  slug             String   @unique
+  logoUrl          String?
+  industry         String?
+  headquarters     String?
+  createdAt        DateTime @default(now())
+
+  compensations    Compensation[]
+}
+
+model Compensation {
+  id                    String   @id @default(cuid())
+
+  role                  String
+  level                 String
+  location              String
+  experienceYears       Int
+
+  baseSalary            Float
+  bonus                 Float   @default(0)
+  stock                 Float   @default(0)
+
+  totalCompensation     Float
+  createdAt             DateTime @default(now())
+
+  companyId             String
+  company               Company @relation(fields: [companyId], references: [id])
+
+  userId                String?
+  user                  User? @relation(fields: [userId], references: [id])
+}
+
+model SavedComparison {
+  id                String   @id @default(cuid())
+  comparisonData    Json
+  createdAt         DateTime @default(now())
+
+  userId            String
+  user              User @relation(fields: [userId], references: [id])
+}
